@@ -278,12 +278,12 @@ void DMA1_Channel1_IRQHandler(void)
 {
   Send_Buffer[0] = 0x07;
   
-  if((ADC_ConvertedValueX >>4) - (ADC_ConvertedValueX_1 >>4) > 4)
+  //if((ADC_ConvertedValueX >>4) - (ADC_ConvertedValueX_1 >>4) > 4)
   {
     Send_Buffer[1] = (u8)(ADC_ConvertedValueX >>4);
-//    UserToPMABufferCopy(Send_Buffer, ENDP1_TXADDR, 8);
-//    SetEPTxCount(ENDP1, 8);
-//    SetEPTxValid(ENDP1);
+    UserToPMABufferCopy(Send_Buffer, ENDP1_TXADDR, 16);
+    SetEPTxCount(ENDP1, 16);
+    SetEPTxValid(ENDP1);
     ADC_ConvertedValueX_1 = ADC_ConvertedValueX;
   }
   

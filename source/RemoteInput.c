@@ -16,11 +16,11 @@ Editor:        Mr.kon
 @ All functions  as follow
 */
 static unsigned char remoteScan(void);
-static void delay(unsigned short int Nms );
+static void delay(unsigned long int Nms );
 
 
 
-static void delay(unsigned short int ms ) 
+static void delay(unsigned long int ms ) 
 {
   while(ms--);
 }
@@ -65,15 +65,15 @@ Others:       koing2010@2015/8/28
 *********************************************************************************/
 void SndRmtCmd()
 {
-  unsigned char Send_Buffer[2];
+  unsigned char Send_Buffer[8];
   Send_Buffer[0] = 0x03;
-  Send_Buffer[1] = remoteScan();
+  Send_Buffer[1] = 0x02;
  if(Send_Buffer[1])
  {
-     UserToPMABufferCopy(Send_Buffer, ENDP1_TXADDR, 2);
-     SetEPTxCount(ENDP1, 2);
+     UserToPMABufferCopy(Send_Buffer, ENDP1_TXADDR, 8);
+     SetEPTxCount(ENDP1, 8);
      SetEPTxValid(ENDP1);
-    delay(50000);
+    delay(0xFFFFFF);
  }
 
 }

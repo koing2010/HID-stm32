@@ -332,7 +332,7 @@ u8 *CustomHID_GetStringDescriptor(u16 Length)
   }
 }
 
-/*******************************************************************************
+/****************************************************************  ***************
 * Function Name  : CustomHID_GetReportDescriptor.
 * Description    : Gets the HID report descriptor.
 * Input          : Length

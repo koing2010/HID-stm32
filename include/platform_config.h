@@ -24,9 +24,9 @@
 /* Exported constants --------------------------------------------------------*/
 
 
-  #define USB_DISCONNECT                      GPIOC  
+  #define USB_DISCONNECT                      GPIOB  
   #define USB_DISCONNECT_PIN                  GPIO_Pin_12
-  #define RCC_APB2Periph_GPIO_DISCONNECT      RCC_APB2Periph_GPIOD
+  #define RCC_APB2Periph_GPIO_DISCONNECT      RCC_APB2Periph_GPIOB
 
   #define RCC_APB2Periph_GPIO_TEMOTE          RCC_APB2Periph_GPIOB
 

@@ -172,27 +172,27 @@ void USB_Interrupts_Config(void)
   NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
   NVIC_Init(&NVIC_InitStructure);
   
-  /* Enable the EXTI9_5 Interrupt */
-  NVIC_InitStructure.NVIC_IRQChannel = EXTI9_5_IRQChannel;
-  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
-  NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
-  NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
-  NVIC_Init(&NVIC_InitStructure);
-  
-    
-  /* Enable the EXTI15_10 Interrupt */
-  NVIC_InitStructure.NVIC_IRQChannel = EXTI15_10_IRQChannel;
-  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
-  NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
-  NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
-  NVIC_Init(&NVIC_InitStructure);
-  
-    /* Enable the DMA1 Channel1 Interrupt */
-  NVIC_InitStructure.NVIC_IRQChannel = DMA1_Channel1_IRQChannel;
-  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
-  NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
-  NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
-  NVIC_Init(&NVIC_InitStructure);
+//  /* Enable the EXTI9_5 Interrupt */
+//  NVIC_InitStructure.NVIC_IRQChannel = EXTI9_5_IRQChannel;
+//  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
+//  NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
+//  NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+//  NVIC_Init(&NVIC_InitStructure);
+//  
+//    
+//  /* Enable the EXTI15_10 Interrupt */
+//  NVIC_InitStructure.NVIC_IRQChannel = EXTI15_10_IRQChannel;
+//  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
+//  NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
+//  NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+//  NVIC_Init(&NVIC_InitStructure);
+//  
+//    /* Enable the DMA1 Channel1 Interrupt */
+//  NVIC_InitStructure.NVIC_IRQChannel = DMA1_Channel1_IRQChannel;
+//  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
+//  NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
+//  NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+//  NVIC_Init(&NVIC_InitStructure);
 }
 
 /*******************************************************************************
@@ -204,13 +204,23 @@ void USB_Interrupts_Config(void)
 *******************************************************************************/
 void USB_Cable_Config (FunctionalState NewState)
 { 
+	 GPIO_InitTypeDef GPIO_InitStructure;
   if (NewState != DISABLE)
   {
-    GPIO_ResetBits(USB_DISCONNECT, USB_DISCONNECT_PIN);
+    		GPIO_SetBits(USB_DISCONNECT, USB_DISCONNECT_PIN);
+  /* Configure USB pull-up pin */
+  GPIO_InitStructure.GPIO_Pin = USB_DISCONNECT_PIN;
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+  GPIO_Init(USB_DISCONNECT, &GPIO_InitStructure);
   }
   else
   {
-    GPIO_SetBits(USB_DISCONNECT, USB_DISCONNECT_PIN);
+  		  /* Configure USB floating pin */
+  GPIO_InitStructure.GPIO_Pin = USB_DISCONNECT_PIN;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+  GPIO_Init(USB_DISCONNECT, &GPIO_InitStructure);
+		 // GPIO_ResetBits(USB_DISCONNECT, USB_DISCONNECT_PIN);
   }
 }
 
@@ -230,20 +240,21 @@ void GPIO_Configuration(void)
  
  
   /* USB_DISCONNECT used as USB pull-up */
+  GPIO_SetBits(USB_DISCONNECT, USB_DISCONNECT_PIN);
   GPIO_InitStructure.GPIO_Pin = USB_DISCONNECT_PIN;
   GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
   GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_OD;
   GPIO_Init(USB_DISCONNECT, &GPIO_InitStructure); 
   
-  GPIO_PinRemapConfig(GPIO_Remap_SWJ_JTAGDisable,ENABLE);
-  /* Configure the REMOTE IO as Input Floating */
-  GPIO_InitStructure.GPIO_Pin = GPIO_TV_PIN|GPIO_D0_PIN|GPIO_D1_PIN|GPIO_D2_PIN|GPIO_D3_PIN;
-  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
-  GPIO_Init(GPIO_REMOTE, &GPIO_InitStructure);
-  
-  GPIO_InitStructure.GPIO_Pin = GPIO_D4_PIN;
-  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
-  GPIO_Init(GPIOA, &GPIO_InitStructure);
+//  GPIO_PinRemapConfig(GPIO_Remap_SWJ_JTAGDisable,ENABLE);
+//  /* Configure the REMOTE IO as Input Floating */
+//  GPIO_InitStructure.GPIO_Pin = GPIO_TV_PIN|GPIO_D0_PIN|GPIO_D1_PIN|GPIO_D2_PIN|GPIO_D3_PIN;
+//  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+//  GPIO_Init(GPIO_REMOTE, &GPIO_InitStructure);
+//  
+//  GPIO_InitStructure.GPIO_Pin = GPIO_D4_PIN;
+//  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+//  GPIO_Init(GPIOA, &GPIO_InitStructure);
 //  
 //  /* Configure the Tamper IO as Input Floating */
 //  GPIO_InitStructure.GPIO_Pin = GPIO_TAMPER_PIN;
