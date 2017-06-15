@@ -65,9 +65,13 @@ Others:       koing2010@2015/8/28
 *********************************************************************************/
 void SndRmtCmd()
 {
-  unsigned char Send_Buffer[8];
-  Send_Buffer[0] = 0x03;
-  Send_Buffer[1] = 0x02;
+  unsigned char Send_Buffer[8] = {
+	   /* frame IN */
+    0x85, 0x03,            /*     REPORT_ID (7)              */
+    0x09, 0x03,            /*     USAGE (frame IN)           */
+		0x01,0x02,0x03,0x04
+};
+
  if(Send_Buffer[1])
  {
      UserToPMABufferCopy(Send_Buffer, ENDP1_TXADDR, 8);

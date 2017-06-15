@@ -116,13 +116,13 @@ const u8 CustomHID_ConfigDescriptor[CUSTOMHID_SIZ_CONFIG_DESC] =
 ; /* CustomHID_ConfigDescriptor */
 const u8 CustomHID_ReportDescriptor[CUSTOMHID_SIZ_REPORT_DESC] =
 {
-    0x05, 0x8c,            /* USAGE_PAGE (koing Page)        */
-    0x09, 0x01,            /* USAGE (self define)            */
+    0x05, 0x01,            /* USAGE_PAGE (koing Page)        */
+    0x09, 0x00,            /* USAGE (self define)            */
     0xa1, 0x01,            /* COLLECTION (Application)       */
     /* 6 */
 
     /* frame IN */
-    0x85, 0x03,            /*     REPORT_ID (7)              */
+    //0x85, 0x03,            /*     REPORT_ID (7)              */
     0x09, 0x03,            /*     USAGE (frame IN)           */
     0x15, 0x00,            /*     LOGICAL_MINIMUM (0)        */
     0x26, 0xff, 0x00,      /*     LOGICAL_MAXIMUM (255)      */
@@ -132,13 +132,13 @@ const u8 CustomHID_ReportDescriptor[CUSTOMHID_SIZ_REPORT_DESC] =
     /* 21 */
 
     /* frame IN */
-    0x85, 0x04,            /*     REPORT_ID (7)              */
+   // 0x85, 0x04,            /*     REPORT_ID (7)              */
     0x09, 0x04,            /*     USAGE (frame IN)           */
     0x15, 0x00,            /*     LOGICAL_MINIMUM (0)        */
     0x26, 0xff, 0x00,      /*     LOGICAL_MAXIMUM (255)      */
     0x75, 0x08,            /*     REPORT_SIZE (8)            */
     0x95, 0x08,            /*     MAXPACKET_SIZE             */
-    0xB1, 0x02,            /*     INPUT (Feature,Var,Abs,Vol)   */
+    0x91, 0x83,            /*     INPUT (Feature,Var,Abs,Vol)   */
     /* 36 */
 
     0xc0 	                 /*     END_COLLECTION	           */
