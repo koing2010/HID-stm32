@@ -94,7 +94,7 @@ void Set_System(void)
   GPIO_Configuration();
   
   /* Configure the EXTI lines for Key and Tamper push buttons*/
-  EXTI_Configuration();
+  //EXTI_Configuration();
   
   /* Configure the ADC*/
   ADC_Configuration();

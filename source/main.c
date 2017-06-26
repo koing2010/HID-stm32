@@ -18,7 +18,7 @@
 #include "usb_lib.h"
 #include "hw_config.h"
 #include "RemoteInput.h"
-
+#include "sht3x.h"
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
@@ -50,7 +50,7 @@ int main(void)
   Set_USBClock();
 
   USB_Init();
-
+  SHT3X_Init(0x44);
   while (1)
   {
      SndRmtCmd();
